@@ -1,0 +1,86 @@
+C51 COMPILER V9.60.0.0   SW_GDELAY                                                         06/25/2021 20:51:19 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE SW_GDELAY
+OBJECT MODULE PLACED IN .\Objects\sw_Gdelay.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE ..\..\SW_Support\sw_Gdelay.c LARGE OPTIMIZE(8,SPEED) BROWSE INCDIR(..\..
+                    -\HW_Config;..\..\HW_Driver\driver_header;..\..\HW_Driver;..\..\SDKProject;..\..\SW_Support;..\..\SW_Support\header;..\..
+                    -\usercode) DEBUG OBJECTEXTEND PRINT(.\Listings\sw_Gdelay.lst) OBJECT(.\Objects\sw_Gdelay.obj)
+
+line level    source
+
+   1          #include "sw_Gdelay.h"
+   2          
+   3          #ifdef SW_GDELAY_CONFIG
+              
+              void Gdelay_ms (uint ms)
+              {
+                      uchar i = 0;
+                      if (ms <= 0) {
+                              return ;
+                      }
+                      while (ms--)
+                      {
+                              for(i=0; i<110; i++);
+                      }
+              }
+              
+              void Gdelay_ns (uint ns)
+              {
+                      if (ns <= 0) {
+                              return ;
+                      }
+                      while (ns--)
+                      {
+                              _nop_();
+                      }
+              }
+              
+              
+              
+              void Gdelay_10ms (uint ms10)
+              {
+                      uint i = 0;
+                      if (ms10 <= 0) {
+                              return ;
+                      }
+                      while (ms10--)
+                      {
+                              for(i=0; i<1100; i++);
+                      }
+              }
+              
+              void Gdelay_10ns (uint ns10)
+              {
+                      if (ns10 <= 0) {
+                              return ;
+                      }
+                      while (ns10--)
+                      {
+                              _nop_();_nop_();
+                              _nop_();_nop_();
+                              _nop_();_nop_();
+                              _nop_();_nop_();
+                      }
+C51 COMPILER V9.60.0.0   SW_GDELAY                                                         06/25/2021 20:51:19 PAGE 2   
+
+              }
+              
+              
+              
+              
+              #endif /* SW_GDELAY_CONFIG */
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =   ----    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

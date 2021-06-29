@@ -1,0 +1,55 @@
+C51 COMPILER V9.60.0.0   HX711                                                             06/25/2021 20:51:25 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE HX711
+OBJECT MODULE PLACED IN .\Objects\hx711.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE ..\..\HW_Driver\hx711.c LARGE OPTIMIZE(8,SPEED) BROWSE INCDIR(..\..\HW_C
+                    -onfig;..\..\HW_Driver\driver_header;..\..\HW_Driver;..\..\SDKProject;..\..\SW_Support;..\..\SW_Support\header;..\..\user
+                    -code) DEBUG OBJECTEXTEND PRINT(.\Listings\hx711.lst) OBJECT(.\Objects\hx711.obj)
+
+line level    source
+
+   1          #include "hx711.h"
+   2          
+   3          
+   4          #ifdef HX711_CONFIG
+              
+              unsigned long HX711_Read(void)
+              {   
+                      ulong Count;   
+                      uchar i; 
+                      HX711_DO = 1;             
+                      HX711_SK = 0;   
+                      Count    = 0;   
+                      while(HX711_DO);   
+                      for (i=0;i<24;i++)
+                      {     
+                              HX711_SK = 1;     
+                              Count = Count<<1;    
+                              HX711_SK = 0;    
+                              if(HX711_DO) {
+                                      Count++;
+                              }
+                      }   
+                      HX711_SK = 1;   
+                      Count    = Count^0x800000;   
+                      HX711_SK = 0; 
+                      
+                      return Count;
+              } 
+              
+              #endif /* HX711_CONFIG */
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =   ----    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,48 @@
+C51 COMPILER V9.60.0.0   USER_FUNC                                                         06/22/2021 16:13:47 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE USER_FUNC
+OBJECT MODULE PLACED IN .\Objects\user_func.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE ..\..\usercode\user_func.c LARGE OPTIMIZE(8,SPEED) BROWSE INCDIR(..\..\H
+                    -W_Config;..\..\HW_Driver\driver_header;..\..\HW_Driver;..\..\SDKProject;..\..\SW_Support;..\..\SW_Support\header;..\..\u
+                    -sercode) DEBUG OBJECTEXTEND PRINT(.\Listings\user_func.lst) OBJECT(.\Objects\user_func.obj)
+
+line level    source
+
+   1          #include "user_main.h"
+*** WARNING C318 IN LINE 1 OF ..\..\usercode\user_func.c: can't open file 'user_main.h'
+   2          
+   3          /*-------------------------------------------------------------------------*/
+   4          
+   5          void user_main (void)
+   6          {
+   7   1              
+   8   1      }
+   9          
+  10          
+  11          
+  12          
+  13          
+  14          
+  15          
+  16          /*-------------------------------------------------------------------------*/
+  17          
+  18          void lcd_show_start (void)
+  19          {
+  20   1              uchar lcd_show[2][16] = {{'M', 'O', 'D', 'E', ':', 'H', '_', 'P', 'A', 'S', 'S', ' ', ' ', ' ', ' ', ' '}
+             -,
+*** ERROR C202 IN LINE 20 OF ..\..\usercode\user_func.c: 'uchar': undefined identifier
+*** ERROR C141 IN LINE 20 OF ..\..\usercode\user_func.c: syntax error near 'lcd_show', expected ';'
+*** ERROR C141 IN LINE 20 OF ..\..\usercode\user_func.c: syntax error near '{', expected 'sizeof'
+*** ERROR C141 IN LINE 20 OF ..\..\usercode\user_func.c: syntax error near '}', expected ';'
+*** ERROR C141 IN LINE 20 OF ..\..\usercode\user_func.c: syntax error near ',', expected '__asm'
+  21   2                                 {'F', 'H', ':', '0', '0', '0', '0', '0', '.', '0', ' ', 'G', 'A', ':', '0', '0'
+             -}};
+*** ERROR C141 IN LINE 21 OF ..\..\usercode\user_func.c: syntax error near '}', expected ';'
+  22   1                                                                                                               
+  23   1              //LCD1602_ShowLine(lcd_show[0], lcd_show[1]);
+  24   1      }
+  25          
+  26          
+
+C51 COMPILATION COMPLETE.  1 WARNING(S),  6 ERROR(S)

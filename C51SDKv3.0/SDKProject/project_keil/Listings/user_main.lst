@@ -1,0 +1,148 @@
+C51 COMPILER V9.60.0.0   USER_MAIN                                                         06/25/2021 20:51:19 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE USER_MAIN
+OBJECT MODULE PLACED IN .\Objects\user_main.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE ..\..\usercode\user_main.c LARGE OPTIMIZE(8,SPEED) BROWSE INCDIR(..\..\H
+                    -W_Config;..\..\HW_Driver\driver_header;..\..\HW_Driver;..\..\SDKProject;..\..\SW_Support;..\..\SW_Support\header;..\..\u
+                    -sercode) DEBUG OBJECTEXTEND PRINT(.\Listings\user_main.lst) OBJECT(.\Objects\user_main.obj)
+
+line level    source
+
+   1          #include "user_main.h"
+   2          
+   3          /*-------------------------------------------------------------------------*/
+   4          uint8_t i = 0;
+   5          uint8_t j = 0;
+   6          uint8_t n = 0;
+   7          
+   8          uint8_t m = 0;
+   9          
+  10          
+  11          static void test (void* arg)
+  12          {
+  13   1              void* ptr = arg;
+  14   1              if (j == 0) {
+  15   2                      P2 = 0X00;
+  16   2                      j = 1;
+  17   2              } else {
+  18   2                      P2 = 0xFF;
+  19   2                      j = 0;
+  20   2              }
+  21   1      }
+  22          
+  23          static void func (void* arg)
+  24          {
+  25   1              void* ptr = arg;
+  26   1              if (i == 0) {
+  27   2                      P0 = 0X00;
+  28   2                      i = 1;
+  29   2              } else {
+  30   2                      P0 = 0xFF;
+  31   2                      i = 0;
+  32   2              }
+  33   1              
+  34   1              if (m < 30) {
+  35   2                      m++;
+  36   2              } else {
+  37   2                      /*
+  38   2                      SOFTTimer_OBJJoin (1000, test, NULL);
+  39   2                      SOFTTimer_OBJRun (test);
+  40   2                      SOFTTimer_OBJRemove (func);
+  41   2                      */
+  42   2                      //PWM_SetDUTY (10);
+  43   2              }
+  44   1      }
+  45          
+  46          static void timer (void* arg)
+  47          {
+  48   1              void* ptr = arg;
+  49   1              n++;
+  50   1              if (n >= 100) {
+  51   2                      P1 = ~P1;
+  52   2                      n = 0;
+  53   2              }
+C51 COMPILER V9.60.0.0   USER_MAIN                                                         06/25/2021 20:51:19 PAGE 2   
+
+  54   1      }
+  55          
+  56          
+  57          static void test1(void* arg)
+  58          {
+  59   1              void* ptr = arg;
+  60   1              PWMGroup_OBJSetDUTY (3, 50);
+  61   1      }
+  62          
+  63          
+  64          /*-------------------------------------------------------------------------*/
+  65          
+  66          void user_main (void)
+  67          {
+  68   1              PWMID ID;
+  69   1              PWMID ID1;
+  70   1              PWMID ID2;
+  71   1              PWMID ID3;
+  72   1              /*
+  73   1              __CRITICAL_SECTION_SET__();
+  74   1              SOFTTimer_OBJJoin (1000, func, NULL);
+  75   1              SOFTTimer_OBJRun (func);
+  76   1              
+  77   1              GTimer_OBJJoin (timer, NULL);
+  78   1              GTimer_OBJRun (timer);
+  79   1              __CRITICAL_SECTION_CLEAR__();
+  80   1              */
+  81   1              
+  82   1              //PWM_Init (50);
+  83   1              //PWM_Start ();
+  84   1              
+  85   1              PWMGroup_OBJJoin (&ID, IO_P3, IO_Bit7, 10);
+  86   1              PWMGroup_OBJJoin (&ID1, IO_P3, IO_Bit6, 20);
+  87   1              PWMGroup_OBJJoin (&ID2, IO_P3, IO_Bit5, 30);
+  88   1              PWMGroup_OBJJoin (&ID3, IO_P3, IO_Bit4, 40);
+  89   1              PWMGroup_OBJRun (ID);
+  90   1              PWMGroup_OBJRun (ID1);
+  91   1              PWMGroup_OBJRun (ID2);
+  92   1              PWMGroup_OBJRun (ID3);
+  93   1              
+  94   1              SOFTTimer_OBJJoin (30000, test1, NULL);
+  95   1              SOFTTimer_OBJRun (test1);
+  96   1              
+  97   1              while (1)
+  98   1              {
+  99   2                      //io_ctrl_set_high (IO_P0, IO_Bit0);
+ 100   2              }
+ 101   1      }
+ 102          
+ 103          
+ 104          
+ 105          
+ 106          
+ 107          
+ 108          
+ 109          
+ 110          /*-------------------------------------------------------------------------*/
+ 111          
+ 112          
+ 113          
+ 114          
+ 115          
+C51 COMPILER V9.60.0.0   USER_MAIN                                                         06/25/2021 20:51:19 PAGE 3   
+
+ 116          
+ 117          
+ 118          
+ 119          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    279    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =      4      16
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,394 @@
+C51 COMPILER V9.60.0.0   PWMGROUP                                                          06/25/2021 20:51:26 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE PWMGROUP
+OBJECT MODULE PLACED IN .\Objects\PWMGroup.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE ..\..\HW_Driver\PWMGroup.c LARGE OPTIMIZE(8,SPEED) BROWSE INCDIR(..\..\H
+                    -W_Config;..\..\HW_Driver\driver_header;..\..\HW_Driver;..\..\SDKProject;..\..\SW_Support;..\..\SW_Support\header;..\..\u
+                    -sercode) DEBUG OBJECTEXTEND PRINT(.\Listings\PWMGroup.lst) OBJECT(.\Objects\PWMGroup.obj)
+
+line level    source
+
+   1          #include "PWMGroup.h"
+   2          
+   3          #ifdef PWMGROUP_CONFIG
+   4          
+   5          
+   6          
+   7          
+   8          
+   9          
+  10          
+  11          
+  12          static char PWMGroupOBJ_Findinvain(void);
+  13          static char PWMGroupOBJ_push(uchar status);
+  14          static char PWMGroupOBJ_pop(uchar status);
+  15          
+  16          
+  17          
+  18          
+  19          
+  20          PWMGROUP_Queue    PWMGroup_OBJ;
+  21          
+  22          
+  23          static int PWMGroup_function (void *arg) 
+  24          {
+  25   1              void *ptr = arg;
+  26   1              if (PWMGroup_OBJ.PWMGROUP_S_0 == 2) {
+  27   2                      PWMGroup_OBJ.PWMGROUP_Arr[0].OutCurPOS++;
+  28   2                      if (PWMGroup_OBJ.PWMGROUP_Arr[0].OutCurPOS == PWMGroup_OBJ.PWMGROUP_Arr[0].OutPosCYC) {
+  29   3                              io_ctrl_set_low (PWMGroup_OBJ.PWMGROUP_Arr[0].OutPort, PWMGroup_OBJ.PWMGROUP_Arr[0].OutBit);
+  30   3                      } else if (PWMGroup_OBJ.PWMGROUP_Arr[0].OutCurPOS == 100) {
+  31   3                              io_ctrl_set_high (PWMGroup_OBJ.PWMGROUP_Arr[0].OutPort, PWMGroup_OBJ.PWMGROUP_Arr[0].OutBit);
+  32   3                              PWMGroup_OBJ.PWMGROUP_Arr[0].OutCurPOS = 0;
+  33   3                      }
+  34   2              }
+  35   1              if (PWMGroup_OBJ.PWMGROUP_S_1 == 2) {
+  36   2                      PWMGroup_OBJ.PWMGROUP_Arr[1].OutCurPOS++;
+  37   2                      if (PWMGroup_OBJ.PWMGROUP_Arr[1].OutCurPOS == PWMGroup_OBJ.PWMGROUP_Arr[1].OutPosCYC) {
+  38   3                              io_ctrl_set_low (PWMGroup_OBJ.PWMGROUP_Arr[1].OutPort, PWMGroup_OBJ.PWMGROUP_Arr[1].OutBit);
+  39   3                      } else if (PWMGroup_OBJ.PWMGROUP_Arr[1].OutCurPOS == 100) {
+  40   3                              io_ctrl_set_high (PWMGroup_OBJ.PWMGROUP_Arr[1].OutPort, PWMGroup_OBJ.PWMGROUP_Arr[1].OutBit);
+  41   3                              PWMGroup_OBJ.PWMGROUP_Arr[1].OutCurPOS = 0;
+  42   3                      }
+  43   2              }
+  44   1              if (PWMGroup_OBJ.PWMGROUP_S_2 == 2) {
+  45   2                      PWMGroup_OBJ.PWMGROUP_Arr[2].OutCurPOS++;
+  46   2                      if (PWMGroup_OBJ.PWMGROUP_Arr[2].OutCurPOS == PWMGroup_OBJ.PWMGROUP_Arr[2].OutPosCYC) {
+  47   3                              io_ctrl_set_low (PWMGroup_OBJ.PWMGROUP_Arr[2].OutPort, PWMGroup_OBJ.PWMGROUP_Arr[2].OutBit);
+  48   3                      } else if (PWMGroup_OBJ.PWMGROUP_Arr[2].OutCurPOS == 100) {
+  49   3                              io_ctrl_set_high (PWMGroup_OBJ.PWMGROUP_Arr[2].OutPort, PWMGroup_OBJ.PWMGROUP_Arr[2].OutBit);
+  50   3                              PWMGroup_OBJ.PWMGROUP_Arr[2].OutCurPOS = 0;
+  51   3                      }
+  52   2              }
+  53   1              if (PWMGroup_OBJ.PWMGROUP_S_3 == 2) {
+C51 COMPILER V9.60.0.0   PWMGROUP                                                          06/25/2021 20:51:26 PAGE 2   
+
+  54   2                      PWMGroup_OBJ.PWMGROUP_Arr[3].OutCurPOS++;
+  55   2                      if (PWMGroup_OBJ.PWMGROUP_Arr[3].OutCurPOS == PWMGroup_OBJ.PWMGROUP_Arr[3].OutPosCYC) {
+  56   3                              io_ctrl_set_low (PWMGroup_OBJ.PWMGROUP_Arr[3].OutPort, PWMGroup_OBJ.PWMGROUP_Arr[3].OutBit);
+  57   3                      } else if (PWMGroup_OBJ.PWMGROUP_Arr[3].OutCurPOS == 100) {
+  58   3                              io_ctrl_set_high (PWMGroup_OBJ.PWMGROUP_Arr[3].OutPort, PWMGroup_OBJ.PWMGROUP_Arr[3].OutBit);
+  59   3                              PWMGroup_OBJ.PWMGROUP_Arr[3].OutCurPOS = 0;
+  60   3                      }
+  61   2              }
+  62   1              
+  63   1              return 0;
+  64   1      }
+  65          
+  66          
+  67          char PWMGroup_Init (void)
+  68          {
+  69   1              memset (&PWMGroup_OBJ, 0, sizeof(PWMGroup_OBJ));
+  70   1              PWMGroup_OBJ.PWMGROUP_S_0 = 0;
+  71   1              PWMGroup_OBJ.PWMGROUP_S_1 = 0;
+  72   1              PWMGroup_OBJ.PWMGROUP_S_2 = 0;
+  73   1              PWMGroup_OBJ.PWMGROUP_S_3 = 0;
+  74   1              PWMGroup_OBJ.PWMGROUP_Arr[0].MemberID = -1;
+  75   1              PWMGroup_OBJ.PWMGROUP_Arr[0].OutBit   =  IO_Bit0;
+  76   1              PWMGroup_OBJ.PWMGROUP_Arr[0].OutPort  =  IO_P0;
+  77   1              PWMGroup_OBJ.PWMGROUP_Arr[0].OutPosCYC= 50;
+  78   1              PWMGroup_OBJ.PWMGROUP_Arr[0].OutCurPOS=  0;
+  79   1              PWMGroup_OBJ.PWMGROUP_Arr[1].MemberID = -1;
+  80   1              PWMGroup_OBJ.PWMGROUP_Arr[1].OutBit   =  IO_Bit0;
+  81   1              PWMGroup_OBJ.PWMGROUP_Arr[1].OutPort  =  IO_P0;
+  82   1              PWMGroup_OBJ.PWMGROUP_Arr[1].OutPosCYC= 50;
+  83   1              PWMGroup_OBJ.PWMGROUP_Arr[1].OutCurPOS=  0;
+  84   1              PWMGroup_OBJ.PWMGROUP_Arr[2].MemberID = -1;
+  85   1              PWMGroup_OBJ.PWMGROUP_Arr[2].OutBit   =  IO_Bit0;
+  86   1              PWMGroup_OBJ.PWMGROUP_Arr[2].OutPort  =  IO_P0;
+  87   1              PWMGroup_OBJ.PWMGROUP_Arr[2].OutPosCYC= 50;
+  88   1              PWMGroup_OBJ.PWMGROUP_Arr[2].OutCurPOS=  0;
+  89   1              PWMGroup_OBJ.PWMGROUP_Arr[3].MemberID = -1;
+  90   1              PWMGroup_OBJ.PWMGROUP_Arr[3].OutBit   =  IO_Bit0;
+  91   1              PWMGroup_OBJ.PWMGROUP_Arr[3].OutPort  =  IO_P0;
+  92   1              PWMGroup_OBJ.PWMGROUP_Arr[3].OutPosCYC= 50;
+  93   1              PWMGroup_OBJ.PWMGROUP_Arr[3].OutCurPOS=  0;
+  94   1      
+  95   1              GTimer_OBJJoin (PWMGroup_function, NULL);
+  96   1              
+  97   1              return 0;
+  98   1      }
+  99          
+ 100          
+ 101          char PWMGroup_Start (void)
+ 102          {
+ 103   1              
+ 104   1              GTimer_OBJRun (PWMGroup_function);
+ 105   1              
+ 106   1              return 0;
+ 107   1      }
+ 108          
+ 109          char PWMGroup_Stop (void)
+ 110          {
+ 111   1      
+ 112   1              GTimer_OBJPause (PWMGroup_function);
+ 113   1              
+ 114   1              return 0;
+ 115   1      }
+C51 COMPILER V9.60.0.0   PWMGROUP                                                          06/25/2021 20:51:26 PAGE 3   
+
+ 116          
+ 117          
+ 118          
+ 119          /* ------------------------------------------------------------ */
+ 120          
+ 121          char PWMGroup_OBJJoin (PWMID *ID, IOPort outPort, IOBit outBit, uint8_t outDuty)
+ 122          {
+ 123   1              char status = -1;
+ 124   1              status = PWMGroupOBJ_Findinvain ();
+ 125   1              if (status < 0) {
+ 126   2                      return -1;
+ 127   2              } else {
+ 128   2                      PWMGroup_OBJ.PWMGROUP_Arr[status].MemberID = status;
+ 129   2                      PWMGroup_OBJ.PWMGROUP_Arr[status].OutPort  = outPort;
+ 130   2                      PWMGroup_OBJ.PWMGROUP_Arr[status].OutBit   = outBit;
+ 131   2                      PWMGroup_OBJ.PWMGROUP_Arr[status].OutPosCYC= outDuty;
+ 132   2                      PWMGroup_OBJ.PWMGROUP_Arr[status].OutCurPOS= 0;
+ 133   2      
+ 134   2                      io_ctrl_set_high (PWMGroup_OBJ.PWMGROUP_Arr[status].OutPort, PWMGroup_OBJ.PWMGROUP_Arr[status].OutBit);
+ 135   2                      *ID                                        = status;
+ 136   2      
+ 137   2                      PWMGroupOBJ_push (status);
+ 138   2              }
+ 139   1              
+ 140   1              return status;
+ 141   1      }
+ 142          
+ 143          char PWMGroup_OBJRemove (PWMID ID)
+ 144          {
+ 145   1      
+ 146   1              switch (ID)
+ 147   1              {
+ 148   2                      case 0:if (PWMGroup_OBJ.PWMGROUP_S_0 != 0) {
+ 149   3                         PWMGroupOBJ_pop (0);
+ 150   3                             }
+ 151   2                                 break;
+ 152   2                      case 1:if (PWMGroup_OBJ.PWMGROUP_S_1 != 0) {
+ 153   3                         PWMGroupOBJ_pop (1);
+ 154   3                             }
+ 155   2                                 break;
+ 156   2                      case 2:if (PWMGroup_OBJ.PWMGROUP_S_2 != 0) {
+ 157   3                         PWMGroupOBJ_pop (2);
+ 158   3                             }
+ 159   2                                 break;
+ 160   2                      case 3:if (PWMGroup_OBJ.PWMGROUP_S_3 != 0) {
+ 161   3                         PWMGroupOBJ_pop (3);
+ 162   3                             }
+ 163   2                                 break;
+ 164   2                      default:return -1;
+ 165   2                             break;
+ 166   2              }
+ 167   1              
+ 168   1              return 0;
+ 169   1      }
+ 170          
+ 171          char PWMGroup_OBJRun (PWMID ID)
+ 172          {
+ 173   1      
+ 174   1              switch (ID)
+ 175   1              {
+ 176   2                      case 0:if (PWMGroup_OBJ.PWMGROUP_S_0 == 1) {
+ 177   3                         PWMGroup_OBJ.PWMGROUP_S_0  = 2;
+C51 COMPILER V9.60.0.0   PWMGROUP                                                          06/25/2021 20:51:26 PAGE 4   
+
+ 178   3                             }
+ 179   2                                 break;
+ 180   2                      case 1:if (PWMGroup_OBJ.PWMGROUP_S_1 == 1) {
+ 181   3                         PWMGroup_OBJ.PWMGROUP_S_1  = 2;
+ 182   3                             }
+ 183   2                                 break;
+ 184   2                      case 2:if (PWMGroup_OBJ.PWMGROUP_S_2 == 1) {
+ 185   3                         PWMGroup_OBJ.PWMGROUP_S_2  = 2;
+ 186   3                             }
+ 187   2                                 break;
+ 188   2                      case 3:if (PWMGroup_OBJ.PWMGROUP_S_3 == 1) {
+ 189   3                         PWMGroup_OBJ.PWMGROUP_S_3  = 2;
+ 190   3                             }
+ 191   2                                 break;
+ 192   2                      default:return -1;
+ 193   2                             break;
+ 194   2              }
+ 195   1              
+ 196   1              return 0;
+ 197   1      }
+ 198          
+ 199          char PWMGroup_OBJPause (PWMID ID)
+ 200          {
+ 201   1              switch (ID)
+ 202   1              {
+ 203   2                      case 0:if (PWMGroup_OBJ.PWMGROUP_S_0 == 2) {
+ 204   3                         PWMGroup_OBJ.PWMGROUP_S_0              = 1;
+ 205   3                                         PWMGroup_OBJ.PWMGROUP_Arr[0].OutCurPOS = 0;
+ 206   3                                         io_ctrl_set_high (PWMGroup_OBJ.PWMGROUP_Arr[0].OutPort, PWMGroup_OBJ.PWMGROUP_Arr[0].OutBit);
+ 207   3                             }
+ 208   2                                 break;
+ 209   2                      case 1:if (PWMGroup_OBJ.PWMGROUP_S_1 == 2) {
+ 210   3                         PWMGroup_OBJ.PWMGROUP_S_1              = 1;
+ 211   3                                         PWMGroup_OBJ.PWMGROUP_Arr[1].OutCurPOS = 0;
+ 212   3                                         io_ctrl_set_high (PWMGroup_OBJ.PWMGROUP_Arr[1].OutPort, PWMGroup_OBJ.PWMGROUP_Arr[1].OutBit);
+ 213   3                             }
+ 214   2                                 break;
+ 215   2                      case 2:if (PWMGroup_OBJ.PWMGROUP_S_2 == 2) {
+ 216   3                         PWMGroup_OBJ.PWMGROUP_S_2              = 1;
+ 217   3                                         PWMGroup_OBJ.PWMGROUP_Arr[2].OutCurPOS = 0;
+ 218   3                                         io_ctrl_set_high (PWMGroup_OBJ.PWMGROUP_Arr[2].OutPort, PWMGroup_OBJ.PWMGROUP_Arr[2].OutBit);
+ 219   3                             }
+ 220   2                                 break;
+ 221   2                      case 3:if (PWMGroup_OBJ.PWMGROUP_S_3 == 2) {
+ 222   3                         PWMGroup_OBJ.PWMGROUP_S_3              = 1;
+ 223   3                                         PWMGroup_OBJ.PWMGROUP_Arr[3].OutCurPOS = 0;
+ 224   3                                         io_ctrl_set_high (PWMGroup_OBJ.PWMGROUP_Arr[3].OutPort, PWMGroup_OBJ.PWMGROUP_Arr[3].OutBit);
+ 225   3                             }
+ 226   2                                 break;
+ 227   2                      default:return -1;
+ 228   2                             break;
+ 229   2              }
+ 230   1              
+ 231   1              return 0;
+ 232   1      }
+ 233          
+ 234          char PWMGroup_OBJSetDUTY (PWMID ID, uint8_t duty)
+ 235          {
+ 236   1              switch (ID)
+ 237   1              {
+ 238   2                      case 0:if (PWMGroup_OBJ.PWMGROUP_S_0 != 0) {
+ 239   3                         PWMGroup_OBJ.PWMGROUP_Arr[0].OutPosCYC = duty;
+C51 COMPILER V9.60.0.0   PWMGROUP                                                          06/25/2021 20:51:26 PAGE 5   
+
+ 240   3                                         PWMGroup_OBJ.PWMGROUP_Arr[0].OutCurPOS = 0;
+ 241   3                                         io_ctrl_set_high (PWMGroup_OBJ.PWMGROUP_Arr[0].OutPort, PWMGroup_OBJ.PWMGROUP_Arr[0].OutBit);
+ 242   3                             }
+ 243   2                                 break;
+ 244   2                      case 1:if (PWMGroup_OBJ.PWMGROUP_S_1 != 0) {
+ 245   3                         PWMGroup_OBJ.PWMGROUP_Arr[1].OutPosCYC = duty;
+ 246   3                                         PWMGroup_OBJ.PWMGROUP_Arr[1].OutCurPOS = 0;
+ 247   3                                         io_ctrl_set_high (PWMGroup_OBJ.PWMGROUP_Arr[1].OutPort, PWMGroup_OBJ.PWMGROUP_Arr[1].OutBit);
+ 248   3                             }
+ 249   2                                 break;
+ 250   2                      case 2:if (PWMGroup_OBJ.PWMGROUP_S_2 != 0) {
+ 251   3                         PWMGroup_OBJ.PWMGROUP_Arr[2].OutPosCYC = duty;
+ 252   3                                         PWMGroup_OBJ.PWMGROUP_Arr[2].OutCurPOS = 0;
+ 253   3                                         io_ctrl_set_high (PWMGroup_OBJ.PWMGROUP_Arr[2].OutPort, PWMGroup_OBJ.PWMGROUP_Arr[2].OutBit);
+ 254   3                             }
+ 255   2                                 break;
+ 256   2                      case 3:if (PWMGroup_OBJ.PWMGROUP_S_3 != 0) {
+ 257   3                         PWMGroup_OBJ.PWMGROUP_Arr[3].OutPosCYC = duty;
+ 258   3                                         PWMGroup_OBJ.PWMGROUP_Arr[3].OutCurPOS = 0;
+ 259   3                                         io_ctrl_set_high (PWMGroup_OBJ.PWMGROUP_Arr[3].OutPort, PWMGroup_OBJ.PWMGROUP_Arr[3].OutBit);
+ 260   3                             }
+ 261   2                                 break;
+ 262   2                      default:return -1;
+ 263   2                             break;
+ 264   2              }
+ 265   1              
+ 266   1              return 0;
+ 267   1      }
+ 268          
+ 269          
+ 270          
+ 271          
+ 272          /* ------------------------------------------------------------ */
+ 273          
+ 274          static char PWMGroupOBJ_Findinvain(void)
+ 275          {
+ 276   1              uchar status = -1;
+ 277   1      
+ 278   1              if (PWMGroup_OBJ.PWMGROUP_S_0 == 0) {
+ 279   2                      status = 0;
+ 280   2              } else if (PWMGroup_OBJ.PWMGROUP_S_1 == 0) {
+ 281   2                      status = 1;
+ 282   2              } else if (PWMGroup_OBJ.PWMGROUP_S_2 == 0) {
+ 283   2                      status = 2;
+ 284   2              } else if (PWMGroup_OBJ.PWMGROUP_S_3 == 0) {
+ 285   2                      status = 3;
+ 286   2              } else {
+ 287   2                      status = -1;
+ 288   2              }
+ 289   1      
+ 290   1              return status;
+ 291   1      }
+ 292          
+ 293          static char PWMGroupOBJ_push(uchar status)
+ 294          {
+ 295   1      
+ 296   1              switch (status)
+ 297   1              {
+ 298   2                      case 0:PWMGroup_OBJ.PWMGROUP_S_0 = 1;break;
+ 299   2                      case 1:PWMGroup_OBJ.PWMGROUP_S_1 = 1;break;
+ 300   2                      case 2:PWMGroup_OBJ.PWMGROUP_S_2 = 1;break;
+ 301   2                      case 3:PWMGroup_OBJ.PWMGROUP_S_3 = 1;break;
+C51 COMPILER V9.60.0.0   PWMGROUP                                                          06/25/2021 20:51:26 PAGE 6   
+
+ 302   2                      default:break;
+ 303   2              }
+ 304   1      
+ 305   1              return 0;
+ 306   1      }
+ 307          
+ 308          static char PWMGroupOBJ_pop(uchar status)
+ 309          {
+ 310   1              
+ 311   1              switch (status)
+ 312   1              {
+ 313   2                      case 0:PWMGroup_OBJ.PWMGROUP_S_0 = 0;
+ 314   2                             PWMGroup_OBJ.PWMGROUP_Arr[0].MemberID   = -1;
+ 315   2                                 PWMGroup_OBJ.PWMGROUP_Arr[0].OutPort    =  IO_P0;
+ 316   2                                 PWMGroup_OBJ.PWMGROUP_Arr[0].OutBit     =  IO_Bit0;
+ 317   2                                 PWMGroup_OBJ.PWMGROUP_Arr[0].OutPosCYC  = 50;
+ 318   2                                 PWMGroup_OBJ.PWMGROUP_Arr[0].OutCurPOS  =  0;
+ 319   2                                 break;
+ 320   2                      case 1:PWMGroup_OBJ.PWMGROUP_S_1 = 0;
+ 321   2                             PWMGroup_OBJ.PWMGROUP_Arr[1].MemberID   = -1;
+ 322   2                                 PWMGroup_OBJ.PWMGROUP_Arr[1].OutPort    =  IO_P0;
+ 323   2                                 PWMGroup_OBJ.PWMGROUP_Arr[1].OutBit     =  IO_Bit0;
+ 324   2                                 PWMGroup_OBJ.PWMGROUP_Arr[1].OutPosCYC  = 50;
+ 325   2                                 PWMGroup_OBJ.PWMGROUP_Arr[1].OutCurPOS  =  0;
+ 326   2                                 break;
+ 327   2                      case 2:PWMGroup_OBJ.PWMGROUP_S_2 = 0;
+ 328   2                             PWMGroup_OBJ.PWMGROUP_Arr[2].MemberID   = -1;
+ 329   2                                 PWMGroup_OBJ.PWMGROUP_Arr[2].OutPort    =  IO_P0;
+ 330   2                                 PWMGroup_OBJ.PWMGROUP_Arr[2].OutBit     =  IO_Bit0;
+ 331   2                                 PWMGroup_OBJ.PWMGROUP_Arr[2].OutPosCYC  = 50;
+ 332   2                                 PWMGroup_OBJ.PWMGROUP_Arr[2].OutCurPOS  =  0;
+ 333   2                                 break;
+ 334   2                      case 3:PWMGroup_OBJ.PWMGROUP_S_3 = 0;
+ 335   2                             PWMGroup_OBJ.PWMGROUP_Arr[3].MemberID   = -1;
+ 336   2                                 PWMGroup_OBJ.PWMGROUP_Arr[3].OutPort    =  IO_P0;
+ 337   2                                 PWMGroup_OBJ.PWMGROUP_Arr[3].OutBit     =  IO_Bit0;
+ 338   2                                 PWMGroup_OBJ.PWMGROUP_Arr[3].OutPosCYC  = 50;
+ 339   2                                 PWMGroup_OBJ.PWMGROUP_Arr[3].OutCurPOS  =  0;
+ 340   2                                 break;
+ 341   2                      default:break;
+ 342   2              }
+ 343   1      
+ 344   1              return 0;
+ 345   1      }
+ 346          
+ 347          
+ 348          
+ 349          
+ 350          
+ 351          
+ 352          
+ 353          
+ 354          
+ 355          
+ 356          
+ 357          #endif /* PWMGROUP_CONFIG */
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =   1168    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =     24      11
+C51 COMPILER V9.60.0.0   PWMGROUP                                                          06/25/2021 20:51:26 PAGE 7   
+
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
